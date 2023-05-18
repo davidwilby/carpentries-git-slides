@@ -13,7 +13,7 @@ author: "**David Wilby**<br>[RSE Team](https://rse.shef.ac.uk/), The University 
 "
 date: 05/23/2023
 date-format: "ddd Do MMMM YYYY"
-footer: "these slides: [rse.shef.ac.uk/git-theory](https://rse.shef.ac.uk/git-theory) - {{< fa brands github >}} [improve this talk!](https://github.com/RSE-Sheffield/git-theory)"
+footer: "these slides: [davidwilby.dev/carpentries-git-slides](https://davidwilby.dev/carpentries-git-slides) - {{< fa brands github >}} [improve this talk!](https://github.com/davidwilby/carpentries-git-slides)"
 from: markdown+emoji
 ---
 
