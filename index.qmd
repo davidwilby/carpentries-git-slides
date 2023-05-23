@@ -1,5 +1,5 @@
 ---
-title: "Supercharge your research code with Git and GitHub"
+title: "Supercharge your research code with Git and GitHub<br>{{< fa brands git-alt >}} {{< fa brands github >}}"
 format:
     revealjs:
         theme: custom.scss
@@ -8,7 +8,7 @@ format:
         chalkboard: true
         code-line-numbers: false
         preview-links: auto
-author: "**David Wilby**<br>[RSE Team](https://rse.shef.ac.uk/), The University of Sheffield<br>[**rse.shef.ac.uk**](https://rse.shef.ac.uk) | [**davidwilby.dev**](https://davidwilby.dev)<br><br>
+author: "**David Wilby**<br>[RSE Team](https://rse.shef.ac.uk/)<br>[**rse.shef.ac.uk**](https://rse.shef.ac.uk) | [**davidwilby.dev**](https://davidwilby.dev)<br><br>
 **Chris Wild**<br>[Research & Innovation IT Team](https://students.sheffield.ac.uk/it-services/research)
 "
 date: 05/23/2023
@@ -21,9 +21,13 @@ from: markdown+emoji
 
 ![](assets/images/phd101212s.png){fig-align="center"}
 
-“Piled Higher and Deeper” by Jorge Cham, http://www.phdcomics.com
+“Piled Higher and Deeper” by Jorge Cham, [phd comics](http://www.phdcomics.com)
 
+# Examples of version control (non-code)
 
+* :books: Book editions
+* {{< fa brands wikipedia-w >}} Wikipedia pages
+* {{< fa brands google >}} Google docs
 
 ## What makes a version control system?
 
@@ -45,7 +49,9 @@ Perhaps
 
 . . .
 
-**Git** (local) :computer:
+**Local** :computer:
+
+e.g. Git {{< fa brands git-alt >}}
 
 * Protect against breaking *everything*
 * Keep at least one working version of the code
@@ -53,7 +59,9 @@ Perhaps
 
 . . .
 
-**GitHub/GitLab** (remote) :globe_with_meridians:
+**Remote** :globe_with_meridians:
+
+e.g. GitHub {{< fa brands github >}}, GitLab {{< fa brands gitlab >}}
 
 * Work collaboratively
 * Share code easily
@@ -112,15 +120,63 @@ The most important concept in git is the `commit` - the name given to a unit of 
 
 :::
 
+
+## Repositories (Repos)
+
 <br>
+
+::: {.callout-tip appearance="simple"}
+
+<font size="6">Once a directory/folder is *initialised* with `git` it becomes a *repository*.</font>
+
+<br><br>
+
+:::
+
+::: columns
+
+::: {.column width="40%"}
+**directory**
+```
+.
+├── src/
+├── LICENSE.md
+└── README.md
+```
+:::
+
+::: {.column width="20%"}
+
+`git init`
+------->
+
+:::
+
+::: {.column width="40%"}
+
+**repository**
+```
+.
+├── .git/
+├── src/
+├── LICENSE.md
+└── README.md
+```
+
+:::
+
+:::
 
 . . .
 
-### Commits contain *changes*
+::: {.callout-note appearance="simple"}
 
-Not actually *snapshots* of a file.
+It's generally a bad idea to keep local repos in a managed location such as Dropbox or Google Drive.
 
-But can recreate a state from a sequence of changes.
+Use GitHub or GitLab to make remote copies/backups.
+
+:::
+
 
 ## Demo
 
@@ -135,6 +191,98 @@ or
 
 {{< qrcode https://onlywei.github.io/explain-git-with-d3 width=350 height=350 >}}
 
+## Firstly, a *linear* commit history
+<br><br>
+```{mermaid}
+%%| fig-width: 15
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showCommitLabel': true, 'rotateCommitLabel': true}} }%%
+gitGraph
+    commit id: "commit 1"
+    commit id: "commit 2"
+    commit id: "commit 3"
+    commit id: "commit 4"
+    commit id: "commit 5"
+    commit id: "commit 6"
+    commit id: "commit 7"
+```
+
+## Branches  {{< fa solid code-branch >}}
+
+Used to work on new features/changes/additions to the code.
+
+```{mermaid}
+%%| fig-width: 10
+%%{init: { 'logLevel': 'debug', 'theme': 'base'} }%%
+gitGraph
+    commit id:"8bc2520"
+    commit id:"2a70480"
+    branch experiment
+    commit id:"089e06b"
+    commit id:"bec84f4"
+    commit id:"2420edd"
+```
+
+```bash
+git branch experiment
+git checkout experiment
+git commit
+git commit
+git commit
+```
+
+
+. . .
+
+
+::: {.callout-tip appearance="simple"}
+
+**Checkout**: switching to a different branch. 
+
+Alternatively, `git switch`
+
+(**Be aware** `checkout` command has many jobs, not just switching branches.
+
+:::
+
+
+. . .
+
+
+::: {.callout-note appearance="simple"}
+
+The default branch is now usually called `main` but is sometimes still `master`.
+
+:::
+
+## Merging  {{< fa solid code-merge >}}
+
+<br>
+
+Combine changes from two branches.
+
+<br>
+
+```{mermaid}
+%%| fig-width: 10
+%%{init: { 'logLevel': 'debug', 'theme': 'base'} }%%
+gitGraph
+    commit id:"8bc2520"
+    commit id:"2a70480"
+    branch experiment
+    commit id:"089e06b"
+    commit id:"bec84f4"
+    commit id:"2420edd"
+    checkout main
+    merge experiment
+    commit id:"60489ec"
+```
+
+```bash
+git checkout main
+git merge experiment
+git commit
+```
+
 
 ## Making a commit {{< fa solid code-commit >}}
 
@@ -145,6 +293,17 @@ or
         B(Save) --> C
         C(Stage changes) --> D(Commit)
 ```
+
+<br>
+
+. . .
+
+### Commits contain *changes*
+
+Not actually *snapshots* of a file.
+
+But can recreate a state from a sequence of changes.
+
 
 ## The commit hash
 
@@ -210,114 +369,8 @@ Displayed most frequently.
 ::: {.column width="70%"}
 
 * :heavy_check_mark: add new module "renderers"
-* :heavy_check_mark: update README with new install instructions
+* :heavy_check_mark: add new install instructions
 * :heavy_check_mark: fix bug #17 with package update
-
-:::
-
-:::
-
-## Branches  {{< fa solid code-branch >}}
-
-Used to work on new features/changes/additions to the code.
-
-```{mermaid}
-%%| fig-width: 10
-%%{init: { 'logLevel': 'debug', 'theme': 'base'} }%%
-gitGraph
-    commit id:"8bc2520"
-    commit id:"2a70480"
-    branch experiment
-    commit id:"089e06b"
-    commit id:"bec84f4"
-    commit id:"2420edd"
-```
-
-```bash
-git branch experiment
-git checkout experiment
-git commit
-git commit
-git commit
-```
-
-::: {.callout-tip appearance="simple"}
-
-**Checkout**: switching to a different branch.
-
-:::
-
-
-## Merging  {{< fa solid code-merge >}}
-
-<br>
-
-Combine changes from two branches.
-
-<br>
-
-```{mermaid}
-%%| fig-width: 10
-%%{init: { 'logLevel': 'debug', 'theme': 'base'} }%%
-gitGraph
-    commit id:"8bc2520"
-    commit id:"2a70480"
-    branch experiment
-    commit id:"089e06b"
-    commit id:"bec84f4"
-    commit id:"2420edd"
-    checkout main
-    merge experiment
-    commit id:"60489ec"
-```
-
-```bash
-git checkout main
-git merge experiment
-git commit
-```
-
-## Repositories (Repos)
-
-<br>
-
-::: {.callout-tip appearance="simple"}
-
-<font size="6">Once a directory/folder is *initialised* with `git` it becomes a *repository*.</font>
-
-<br><br>
-
-:::
-
-::: columns
-
-::: {.column width="40%"}
-**directory**
-```
-.
-├── src/
-├── LICENSE.md
-└── README.md
-```
-:::
-
-::: {.column width="20%"}
-
-`git init`
-------->
-
-:::
-
-::: {.column width="40%"}
-
-**repository**
-```
-.
-├── .git/
-├── src/
-├── LICENSE.md
-└── README.md
-```
 
 :::
 
@@ -338,8 +391,6 @@ $ git status
 ```
 
 <br>
-
-. . .
 
 ::: columns
 
@@ -364,6 +415,47 @@ $ git status
 :::
 
 :::
+
+
+## File types
+
+**`Git` is great at handling _text_ files but NOT _binary_ files.**
+
+::: columns
+
+::: {.column width="50%"}
+
+### Text files
+
+Just plain text, e.g. files containing code such as:
+
+* .R, .py, .m, .cpp
+* csv files
+
+NOT documents such as
+
+* .docx - Microsoft Word documents
+* .pdf - PDF documents
+
+These aren't text files, even though they primarily contain text.
+
+:::
+
+::: {.column width="50%"}
+
+### Binary files
+Files that need a specific program to read, including:
+
+* .docx - Microsoft Word documents
+* .xlsx - spreadsheets
+* .pdf - PDF documents
+* .fig - MATLAB figures
+* .jpg, .gif - Images
+
+:::
+
+:::
+
 
 ## Git learning resources
 
