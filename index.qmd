@@ -425,12 +425,16 @@ $ git status
 
 ::: {.column width="50%"}
 
-### Text files
+::: {.callout-tip icon=false appearance="simple"}
+
+## What are text files?
 
 Just plain text, e.g. files containing code such as:
 
-* .R, .py, .m, .cpp
-* csv files
+* Plain text code files - e.g. .R, .py, .m, .cpp
+* Plain text data files - e.g. csv
+
+<br>
 
 NOT documents such as
 
@@ -441,9 +445,14 @@ These aren't text files, even though they primarily contain text.
 
 :::
 
+:::
+
 ::: {.column width="50%"}
 
-### Binary files
+::: {.callout-important icon=false appearance="simple"}
+
+## What are binary files?
+
 Files that need a specific program to read, including:
 
 * .docx - Microsoft Word documents
@@ -451,6 +460,12 @@ Files that need a specific program to read, including:
 * .pdf - PDF documents
 * .fig - MATLAB figures
 * .jpg, .gif - Images
+
+<br>
+
+**Note**: `Git` can handle binary files, but can't inspect what changes have been made, only that the file has changed. Making merging impossible.
+
+:::
 
 :::
 
